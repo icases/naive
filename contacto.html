@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">   
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">   
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>NaiveWors: Como funciona</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">  
+	<style type="text/css" media="screen">
+		#main{
+			-webkit-column-count: 2; /* Chrome, Safari, Opera */
+			    -moz-column-count: 2; /* Firefox */
+			    column-count: 3;  
+		    -webkit-column-width: 300px;
+		     -moz-column-width: 300px;
+		          column-width: 30s0px;
+				-webkit-column-gap: 3em;
+				     -moz-column-gap: 3em;
+				          column-gap: 3em;  
+		text-align:justify;
+		}
+		#main img {
+			-webkit-column-span: all; 
+			          column-span: all;
+		}
+		#main h4 {
+			-webkit-column-span: all; 
+			          column-span: all;
+		}
+	</style>
+</head> 
+<body >
+	 <div class="container">  
+		<nav class="navbar navbar-default">  
+			<div class="container-fluid">   
+				<div class="navbar-header">  
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+					</button>
+                    <a href='index.html' class="navbar-brand">NaiveWord</a>
+				</div> 
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav" id='nav'>
+                        <li ><a href='how-to.html'>Como funciona</a></li>
+						<li class='active'><a href='#'>Más info</a></li>
+						<li  class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			      				Otros Idiomas <span class="caret"></span>
+			    			</a>
+			    			<ul class="dropdown-menu">
+			      				<li><a href='index.hmtl'><img src="img/es.png" alt="español"> Español</a></li>
+				 				<li><a href='#'><img src="img/gb.png" alt="español"> English</a></li>
+								<li><a href='#'><img src="img/de.png" alt="español"> Deutsch</a></li>
+			  					<li><a href='#'><img src="img/it.png" alt="español"> Italiano</a></li>
+			    			</ul>
+						</li>
+						
+						
+		  			</ul>
+				</div> 
+			</div>
+		</nav>
+		<div id="header" class="page-header text-center">
+  	  		<h1>Sobre NaiveWords</h1>
+  	  		<p class='lead'>Este projecto ha sido una manera de practicar con modelos bayesianos.</p>
+   		</div>
+		<div id='main'> 
+			<h4>El projecto</h4>
+			<p>Por razones profesionales tenia que aprender un poco de modelos bayesianos,
+				 asi que me parecio una buena idea aplicarlos para aprender un poco. La primera idea era usarlos
+				para intentar averigar el idioma en el que estaba escrito un texto. De hay pasamos a el idioma  al
+				 que pertenece una palabra y de ahi a los generadores de palabras inventadas.
+				 Me parecio divertido implementarlo como un juego  que pusiera un poco a prueba tu vocabulario y tu intuición. 
+			 </p>    
+			
+	</div>
+</body>
+</html>

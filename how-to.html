@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">   
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">   
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>NaiveWors: Como funciona</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">  
+	<style type="text/css" media="screen">
+		#main{
+			-webkit-column-count: 2; /* Chrome, Safari, Opera */
+			    -moz-column-count: 2; /* Firefox */
+			    column-count: 3;  
+		    -webkit-column-width: 300px;
+		     -moz-column-width: 300px;
+		          column-width: 30s0px;
+				-webkit-column-gap: 3em;
+				     -moz-column-gap: 3em;
+				          column-gap: 3em;  
+		text-align:justify;
+		}
+		#main img {
+			-webkit-column-span: all; 
+			          column-span: all;
+		}
+		#main h4 {
+			-webkit-column-span: all; 
+			          column-span: all;
+		}
+	</style>
+</head> 
+<body >
+	 <div class="container">  
+		<nav class="navbar navbar-default">  
+			<div class="container-fluid">   
+				<div class="navbar-header">  
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+					</button>
+                    <a href='index.html' class="navbar-brand">NaiveWord</a>
+				</div> 
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav" id='nav'>
+                        <li class='active'><a href='#'>Como funciona</a></li>
+						<li ><a href='contacto'>Más info</a></li>
+						<li  class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			      				Otros Idiomas <span class="caret"></span>
+			    			</a>
+			    			<ul class="dropdown-menu">
+			      				<li><a href='index.html'><img src="img/es.png" alt="español"> Español</a></li>
+				 				<li><a href='#'><img src="img/gb.png" alt="español"> English</a></li>
+								<li><a href='#'><img src="img/de.png" alt="español"> Deutsch</a></li>
+			  					<li><a href='#'><img src="img/it.png" alt="español"> Italiano</a></li>
+			    			</ul>
+						</li>
+						
+						
+		  			</ul>
+				</div> 
+			</div>
+		</nav>
+		<div id="header" class="page-header text-center">
+  	  		<h1>¿Cómo funciona?</h1>
+  	  		<p class='lead'>NaiveWords usa un modelo bayesiano basado en frecuencias de 4-gramas.</p>
+   		</div>
+		<div id='main'> 
+			<h4>Un idioma como un conjunto de n-gramas</h4>
+			<p>La idea principal es que podemos describir un idioma como la frecuencia con que aparecen combinaciones de letras concretas (<i>n-gramas</i>).
+				 Es bastante intuitivo: en español  es bastante frecuente la combinacion "ción" pero no aparece nunca "thou" 
+				que es muy  común en inglés. Si generamos tablas de frecuencias de n-gramas podemos usarlas para intentar adivinar
+				 a que idioma pertenece una palabra. Pero no sólo eso: támbien podemos usarlas para inventar palabras que <i>parezcan</i> de un idioma. 
+				¿Puedes distinguir las reales de las inventadas?
+			 </p>      
+			
+			<h4>Extrayendo 4-gramas</h4>
+			   Para comenzar partimos de un lemario (listado de palabras de un idioma) público para cada idioma. 
+			Se extraen todas las subcadenas de 4 letras (incluyendo  <i>pseudo</i>-caracteres para el principio y fin de palabra) 
+			y se calcula la frecuencia de cada uno. </p>
+			<p>En nuestro lemario, existen unas 80.000 palabras que contienen unos 39.000 4-gramas diferentes de los mas de un millón posibles 
+			: 27 caracteres + 5 caracteres acentuados + "ü" = 33 caracteres distinto
+			 + principio o fin de palabra (solo en la primera posicion) =  
+			 34*33*33*34=1.258.884. El más frecuente es "nte#" que aparece 3198 y hay XXX que aparecen sólo una vez.   </p> 
+			
+		   <img src="img/gramas.png" class='img-responsive' alt="Como se generan los 4-gramas">   
+			<h4>Generando nuevas palabras</h4>
+			<p>
+			 Estas tablas de frecuencias de cada idioma podemos usarlas para generar palabras 
+			que <i>parecen</i> reales. Comenzamos con un prefijo (grupo de 4 letras con que incluye en pseudo-carater de unicio de palabra) 
+			y vamos añadiendo letras de la siguiente manera: tomamos las tres ultimas letras de la palabra que estamos generando y de entre 
+			los 4-gramas que empiezan por esas tres letras elejimos uno al azar, ponderando la probabilidad de elegirlo en base a su frecuencia.
+			Y seguimos añadiendo letras hasta que encontramos un pseudo-caracter de fin de palabra. </p>
+			<img src="img/generate.png" class='img-responsive' alt="Como se generan los 4-gramas">  
+			<h4>Limitaciones</h4>
+			<p>El sistema no incluye ninguna manera de controlar por el tamaño de las palabras y genera con  cierta frecuencia palabras anoramente largas.
+				 Otros problemas vienen del uso de los caracteres acentuados. Con cierta frecuencia aparecen palabras con 2 caracteres acentuados
+				 o con una u con diéresis que no esta precedida por una "g". Igualmente aparecen palabra que "deberian" estar acentuadas y no lo estan,
+				las terminadas ne "onico/a", parecen normales , pero la falta de tilde las delata. 
+			 <p>Otra limitacion es el lemario, que no esta completo, y creo que eería mas divertido si incluyeremos todas las formas verbales.</p> 
+	</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Palabras, Palabros</title>                                       
+	  
+	<link rel="stylesheet" href="css/words.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="js/jquery.sparkline.min.js" type="text/javascript" charset="utf-8"></script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="js/jquery.quickfit.js" type="text/javascript" charset="utf-8"></script>    
+	<script src="js/words.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+</head>
+
+<body>     
+	<div class="container">  
+		<nav class="navbar navbar-default">  
+			<div class="container-fluid">   
+				<div class="navbar-header">  
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+					</button>
+                    <a href='#' class="navbar-brand">NaiveWord</a>
+				</div> 
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav" id='nav'>
+                        <li ><a href='how-to.html'>Como funciona</a></li>
+						<li ><a href='contacto.html'>Más info</a></li>
+						<li  class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+			      				Otros Idiomas <span class="caret"></span>
+			    			</a>
+			    			<ul class="dropdown-menu">
+			      				<li id='es' class='lang active'><a href='index.html'><img src="img/es.png" alt="español"> Español</a></li>
+				 				<li id='en' class='lang'><a href='index.html?lang=en'><img src="img/gb.png" alt="inglés"> English</a></li>
+								<li id='de' class='lang'><a href='index.html?lang=de'><img src="img/de.png" alt="alemám"> Deutsch</a></li>
+			  					<li id='it'class='lang'><a href='index.html?lang=it'><img src="img/it.png" alt="italiano"> Italiano</a></li>
+			    			</ul>
+						</li>
+						
+						
+		  			</ul>
+				</div> 
+			</div>
+		</nav>
+  		<div id="header" class="page-header text-center">
+  	  		<h1>¿Es esto <span class='langName'>Castellano</span>?</h1>
+  	  		<p class='lead'>Hablas <span class='langName'>castellano</span>, pero ¿cómo de bien lo conoces?</p>
+   		</div>
+ 	
+ 		<div class="container"> 
+		 	<div id="content" class=' text-center col-sm-6  '> 
+			<p class='small' id='warn'>Recuerda, no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong></p>
+				<div id='word' class='left'>Cargando <img src="img/spinner3-bluey.gif" width="36" height="36" alt="Spinner3 Bluey"></div> 
+				<div id='buttons' class='center-block text-center'>
+					<button type="button" class='btn btn-success' id='yes'>Es una palabra real</button>
+					<button type="button" class='btn btn-danger' id='no'>Te lo has inventado</button>
+				</div> 
+			
+	   	   		<div  id='result' class="well col-sm-8 col-sm-offset-2">
+				   	   <h3 id="exclama">¡Bien!</h3> <p id='mensaje'>Tienes razón. Esta es una palabra real.</p>
+						<button type='button' class="btn btn-default" id='new'>Nueva Palabra</button>
+				</div>    
+			</div>    
+	   		<div class='col-sm-6'>
+    			<div id="lista" class="panel panel-info "  > 
+					<div class="panel-heading">
+				      <h4>¿Cómo lo estás haciendo? <h4>
+			 		</div> 
+					<div class="panel-body text-center">
+				    	<h3>bien <span id='bien' class="badge">0 </span>  mal <span id='mal' class="badge">0 </span></h3>
+			        	<a class="btn btn-info btn-xs" role="button" data-toggle="collapse" href="#word_list" aria-expanded="false" aria-controls="word_list" id='toggleList'>Ver Palabras</a> 
+				   		<button type="button" class="btn btn-info btn-xs " id='restart'>Empezar de Nuevo</button>
+			    	</div>
+				 	<ul class="list-group collapse" id='word_list'>
+			    
+					</ul>
+				</div>
+			</div>
+		 <div> 
+	 </div>                           
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+#directories
+DB_DIR = /Volumes/TheHole/Users/icases/Sites/naive/dbs/
+MODELS_DIR = /Volumes/TheHole/Users/icases/Sites/naive/models/
+LEM_DIR= /Volumes/TheHole/Users/icases/Sites/naive/lemarios/
+
+#languages
+LANG = en
+LANG = es
+LANG = it
+LANG = de
+
+#queue parameters
+
+
+#daemon 
+DAEMON_NAME= keep_it_up.pl
+DAEMON_DIR = /Volumes/TheHole/Users/icases/Sites/naive/bin/
