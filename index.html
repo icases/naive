@@ -60,13 +60,13 @@
 			<p class='small' id='warn'>Recuerda, no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong></p>
 				<div id='word' class='left'>Cargando <img src="img/spinner3-bluey.gif" width="36" height="36" alt="Spinner3 Bluey"></div> 
 				<div id='buttons' class='center-block text-center'>
-					<button type="button" class='btn btn-success' id='yes'>Es una palabra real</button>
-					<button type="button" class='btn btn-danger' id='no'>Te lo has inventado</button>
+					<button type="button" class='btn btn-success' id='yes'>Es una palabra real <span class='visible-md-block visible-lg-block'>&#8617;</span> </button>
+					<button type="button" class='btn btn-danger' id='no'>Te lo has inventado <span class='visible-md-block visible-lg-block'>&#9003;</span></button>
 				</div> 
 			
 	   	   		<div  id='result' class="well col-sm-8 col-sm-offset-2">
 				   	   <h3 id="exclama">¡Bien!</h3> <p id='mensaje'>Tienes razón. Esta es una palabra real.</p>
-						<button type='button' class="btn btn-default" id='new'>Nueva Palabra</button>
+						<button type='button' class="btn btn-default" id='new'>Nueva Palabra <span class='visible-md-block visible-lg-block'>&#8617;</span></button>
 				</div>    
 			</div>    
 	   		<div class='col-sm-6'>
@@ -76,7 +76,7 @@
 			 		</div> 
 					<div class="panel-body text-center">
 				    	<h3>bien <span id='bien' class="badge">0 </span>  mal <span id='mal' class="badge">0 </span></h3>
-			        	<a class="btn btn-info btn-xs" role="button" data-toggle="collapse" href="#word_list" aria-expanded="false" aria-controls="word_list" id='toggleList'>Ver Palabras</a> 
+			        	<button type="button" class="btn btn-info btn-xs"  data-toggle="collapse" href="#word_list" aria-expanded="false" aria-controls="word_list" id='toggleList'>Ver Palabras</button> 
 				   		<button type="button" class="btn btn-info btn-xs " id='restart'>Empezar de Nuevo</button>
 			    	</div>
 				 	<ul class="list-group collapse" id='word_list'>
@@ -84,8 +84,14 @@
 					</ul>
 				</div>
 			</div>
+			 <div class='footer text-center visible-md-block visible-lg-block'>
+				<b>Otros atajos del teclado:</b>  <kbd>d</kbd> Ver <strong>D</strong>ifinición de la ultima palabra, 
+				<kbd>t</kbd> Ver <strong>T</strong>raducción de la ultima palabra,
+				<kbd>l</kbd> Abrir/Cerrar <strong>L</strong>ista de palabras
+				<kbd>r</kbd> Volver a empeza<strong>R</strong>
+			 </div>
 		 <div> 
-	 </div>                           
+	                           
 
 </body>
 </html>

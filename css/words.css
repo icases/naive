@@ -5,4 +5,13 @@
  
  #word{         
     font-size:98px;
- }
+ } } } }
+.footer{      
+     left:0;
+     right:0;
+     position: absolute;
+     bottom:0;
+     line-height:2em; 
+     padding:1em;
+     background:#EEE;
+}
