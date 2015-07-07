@@ -65,7 +65,7 @@ sub queue_word($){
 			$word='';
 			do {
 				$word=$model->generate();
-				} until (!$model->exist($word));
+				} until ($word ne '' and !$model->exist($word));
 			$real=0;
 		}	
 		$q->add($serializer->serialize({word=>$word,real=>$real}));
