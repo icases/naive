@@ -16,6 +16,7 @@ Open `http://localhost:3000`. The server serves the static pages and provides
 Use the compact selector in the top-right corner to switch the game interface
 and word model between Spanish, English, Italian, and German.
 
+
 ## Verify
 
 ```sh
@@ -24,3 +25,11 @@ npm test
 
 The tests start the server, load the game page, request words for every
 language, and confirm that invalid languages are rejected.
+
+## Deploy on Render
+
+`render.yaml` defines a free Node web service. Create a Render account, connect
+GitHub, and choose **New + → Blueprint** for this repository. Select
+`codex/javascript-rewrite` to test this branch, or `master` after merging it.
+Render runs `npm test`, starts the app with `npm start`, and redeploys after
+each commit to the selected branch. No application secret is required.
