@@ -38,6 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
   byId('toggleList').addEventListener('click', toggleList);
   byId('languagePicker').addEventListener('change', (event) => switchLanguage(event.target.value));
   document.addEventListener('keyup', onKeyUp);
+  window.addEventListener('resize', fitWord);
 });
 
 function translatePage() {
@@ -103,8 +104,26 @@ async function loadWord() {
     currentWord = data.word;
     currentReal = data.real;
     byId('word').textContent = currentWord;
+    requestAnimationFrame(fitWord);
     byId('buttons').hidden = false;
   } catch (_) { byId('word').textContent = text.loadError; }
+}
+
+function fitWord() {
+  const word = byId('word');
+  if (!word || !currentWord) return;
+
+  const minimumSize = 14;
+  let fontSize = Math.min(86, Math.max(minimumSize, word.clientWidth / 3));
+  word.style.fontSize = `${fontSize}px`;
+  word.style.letterSpacing = 'normal';
+
+  while (word.scrollWidth > word.clientWidth && fontSize > minimumSize) {
+    fontSize -= 1;
+    word.style.fontSize = `${fontSize}px`;
+  }
+
+  if (word.scrollWidth > word.clientWidth) word.style.letterSpacing = '-0.05em';
 }
 
 function checkAnswer(answer) {
@@ -166,7 +185,10 @@ function restart() {
 
 function onKeyUp(event) {
   if (event.target.matches('select, input, textarea')) return;
-  if (event.key === 'Enter') checkAnswer(true);
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    byId('result').hidden ? checkAnswer(true) : loadWord();
+  }
   if (event.key === 'Backspace') checkAnswer(false);
   if (event.key.toLowerCase() === 'l') toggleList();
   if (event.key.toLowerCase() === 'r') restart();

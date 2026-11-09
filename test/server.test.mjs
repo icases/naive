@@ -23,6 +23,19 @@ test('uses HTTPS dictionary links', async () => {
   assert.match(client, /https:\/\/dle\.rae\.es/);
 });
 
+test('fits each generated word onto one line', async () => {
+  const client = await readFile(new URL('../js/words.js', import.meta.url), 'utf8');
+  const styles = await readFile(new URL('../css/words.css', import.meta.url), 'utf8');
+  assert.match(client, /function fitWord\(\)/);
+  assert.match(client, /word\.scrollWidth > word\.clientWidth/);
+  assert.match(styles, /white-space: nowrap/);
+});
+
+test('uses Enter for the next word after a result', async () => {
+  const client = await readFile(new URL('../js/words.js', import.meta.url), 'utf8');
+  assert.match(client, /byId\('result'\)\.hidden \? checkAnswer\(true\) : loadWord\(\)/);
+});
+
 test('does not load legacy UI libraries', async () => {
   for (const page of ['index.html', 'how-to.html', 'contacto.html']) {
     const source = await readFile(new URL(`../${page}`, import.meta.url), 'utf8');

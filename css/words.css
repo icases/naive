@@ -1,7 +1,7 @@
 .game-layout { display: grid; gap: 24px; grid-template-columns: minmax(0, 1fr) minmax(260px, .75fr); }
 .game-board, .score-panel, .result { background: white; border: 1px solid #d7deea; border-radius: 12px; box-shadow: 0 2px 8px rgb(31 41 55 / 6%); padding: 24px; }
 .hint { color: #526176; margin-top: 0; text-align: center; }
-#word { font-size: clamp(2.2rem, 8vw, 5.4rem); font-weight: 750; line-height: 1.1; overflow-wrap: anywhere; padding: 42px 0; text-align: center; }
+#word { font-size: 5.4rem; font-weight: 750; line-height: 1.1; overflow: hidden; padding: 42px 0; text-align: center; white-space: nowrap; }
 .actions, .panel-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .result { margin-top: 20px; text-align: center; }
 .result h2 { margin-top: 0; }
