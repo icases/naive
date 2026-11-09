@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
+import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
 import { createApp } from '../server.mjs';
@@ -15,6 +16,12 @@ test.before(async () => {
 });
 
 test.after(() => server.close());
+
+test('uses HTTPS dictionary links', async () => {
+  const client = await readFile(new URL('../js/words.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(client, /http:\/\//);
+  assert.match(client, /https:\/\/dle\.rae\.es/);
+});
 
 test('reports its health', async () => {
   const response = await fetch(`${baseUrl}/health`);

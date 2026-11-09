@@ -8,10 +8,10 @@ var translate = false;
 var wordListOpen = false;
 
 var dicts = {
-    es: 'http://buscon.rae.es/drae/srv/search?val=',
-    en: 'http://findwords.info/term/search?query=',
-    de: 'http://de.thefreedictionary.com/',
-    it: 'http://it.thefreedictionary.com/'
+    es: 'https://dle.rae.es/',
+    en: 'https://en.wiktionary.org/wiki/',
+    de: 'https://de.wiktionary.org/wiki/',
+    it: 'https://it.wiktionary.org/wiki/'
 };
 
 var translations = {
