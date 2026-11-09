@@ -28,6 +28,7 @@ test('serves the game page', async () => {
   const page = await response.text();
   assert.match(page, /NaiveWord/);
   assert.match(page, /id="languagePicker"/);
+  assert.match(page, /id=['"]streak['"]/);
   for (const language of ['es', 'en', 'it', 'de']) {
     assert.match(page, new RegExp(`<option value="${language}">`));
   }
