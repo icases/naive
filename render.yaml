@@ -5,5 +5,5 @@ services:
     plan: free
     buildCommand: npm test
     startCommand: npm start
-    healthCheckPath: /
+    healthCheckPath: /health
     autoDeployTrigger: commit

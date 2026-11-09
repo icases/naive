@@ -100,6 +100,11 @@ export async function createApp() {
 
   return createServer(async (request, response) => {
     const url = new URL(request.url, `http://${request.headers.host ?? 'localhost'}`);
+    if (url.pathname === '/health') {
+      sendJson(response, 200, { status: 'ok' });
+      return;
+    }
+
     if (url.pathname === '/api/word') {
       const language = url.searchParams.get('lang') ?? 'es';
       if (!models.has(language)) {

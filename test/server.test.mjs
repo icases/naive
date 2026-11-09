@@ -16,6 +16,12 @@ test.before(async () => {
 
 test.after(() => server.close());
 
+test('reports its health', async () => {
+  const response = await fetch(`${baseUrl}/health`);
+  assert.equal(response.status, 200);
+  assert.deepEqual(await response.json(), { status: 'ok' });
+});
+
 test('serves the game page', async () => {
   const response = await fetch(`${baseUrl}/`);
   assert.equal(response.status, 200);
