@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<title>Palabras, Palabros</title>                                       
+	<title>NaiveWord</title>
 	  
 	<link rel="stylesheet" href="css/words.css" type="text/css" media="screen" title="no title" charset="utf-8">
 	
@@ -17,6 +17,15 @@
 
 <body>     
 	<div class="container">  
+		<div class="language-picker">
+			<label class="sr-only" for="languagePicker" id="languagePickerLabel">Idioma</label>
+			<select id="languagePicker" class="form-control input-sm">
+				<option value="es">Español</option>
+				<option value="en">English</option>
+				<option value="it">Italiano</option>
+				<option value="de">Deutsch</option>
+			</select>
+		</div>
 		<nav class="navbar navbar-default">  
 			<div class="container-fluid">   
 				<div class="navbar-header">  
@@ -30,64 +39,48 @@
 				</div> 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav" id='nav'>
-                        <li ><a href='how-to.html'>Como funciona</a></li>
-						<li ><a href='contacto.html'>Más info</a></li>
-						<li  class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-			      				Otros Idiomas <span class="caret"></span>
-			    			</a>
-			    			<ul class="dropdown-menu">
-			      				<li id='es' class='lang active'><a href='index.html'><img src="img/es.png" alt="español"> Español</a></li>
-				 				<li id='en' class='lang'><a href='index.html?lang=en'><img src="img/gb.png" alt="inglés"> English</a></li>
-								<li id='de' class='lang'><a href='index.html?lang=de'><img src="img/de.png" alt="alemám"> Deutsch</a></li>
-			  					<li id='it'class='lang'><a href='index.html?lang=it'><img src="img/it.png" alt="italiano"> Italiano</a></li>
-			    			</ul>
-						</li>
-						
-						
+                        <li><a id="howToLink" href='how-to.html'>Cómo funciona</a></li>
+						<li><a id="infoLink" href='contacto.html'>Más información</a></li>
 		  			</ul>
 				</div> 
 			</div>
 		</nav>
-  		<div id="header" class="page-header text-center">
-  	  		<h1>¿Es esto <span class='langName'>Castellano</span>?</h1>
-  	  		<p class='lead'>Hablas <span class='langName'>castellano</span>, pero ¿cómo de bien lo conoces?</p>
+		<div id="header" class="page-header text-center">
+			<h1 id="heading">¿Es esto español?</h1>
+			<p class='lead' id="intro">Hablas español, pero ¿cómo de bien lo conoces?</p>
    		</div>
  	
  		<div class="container"> 
 		 	<div id="content" class=' text-center col-sm-6  '> 
-			<p class='small' id='warn'>Recuerda, no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong></p>
+			<p class='small' id='warn'>Recuerda: no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong>.</p>
 				<div id='word' class='left'>Cargando <img src="img/spinner3-bluey.gif" width="36" height="36" alt="Spinner3 Bluey"></div> 
 				<div id='buttons' class='center-block text-center'>
-					<button type="button" class='btn btn-success' id='yes'>Es una palabra real <span class='visible-md-block visible-lg-block'>&#8617;</span> </button>
-					<button type="button" class='btn btn-danger' id='no'>Te lo has inventado <span class='visible-md-block visible-lg-block'>&#9003;</span></button>
+					<button type="button" class='btn btn-success' id='yes'><span id="yesLabel">Es una palabra real</span> <span class='visible-md-block visible-lg-block'>&#8617;</span> </button>
+					<button type="button" class='btn btn-danger' id='no'><span id="noLabel">Te lo has inventado</span> <span class='visible-md-block visible-lg-block'>&#9003;</span></button>
 				</div> 
 			
 	   	   		<div  id='result' class="well col-sm-8 col-sm-offset-2">
-				   	   <h3 id="exclama">¡Bien!</h3> <p id='mensaje'>Tienes razón. Esta es una palabra real.</p>
-						<button type='button' class="btn btn-default" id='new'>Nueva Palabra <span class='visible-md-block visible-lg-block'>&#8617;</span></button>
+						<h3 id="exclama">¡Bien!</h3> <p id='mensaje'>Tienes razón. Esta es una palabra real.</p>
+						<button type='button' class="btn btn-default" id='new'><span id="newLabel">Nueva palabra</span> <span class='visible-md-block visible-lg-block'>&#8617;</span></button>
 				</div>    
 			</div>    
 	   		<div class='col-sm-6'>
     			<div id="lista" class="panel panel-info "  > 
 					<div class="panel-heading">
-				      <h4>¿Cómo lo estás haciendo? <h4>
+					      <h4 id="scoreTitle">¿Cómo lo estás haciendo?</h4>
 			 		</div> 
 					<div class="panel-body text-center">
-				    	<h3>bien <span id='bien' class="badge">0 </span>  mal <span id='mal' class="badge">0 </span></h3>
-			        	<button type="button" class="btn btn-info btn-xs"  data-toggle="collapse" href="#word_list" aria-expanded="false" aria-controls="word_list" id='toggleList'>Ver Palabras</button> 
-				   		<button type="button" class="btn btn-info btn-xs " id='restart'>Empezar de Nuevo</button>
+						<h3><span id="correctLabel">bien</span> <span id='bien' class="badge">0 </span> <span id="incorrectLabel">mal</span> <span id='mal' class="badge">0 </span></h3>
+						<button type="button" class="btn btn-info btn-xs" data-toggle="collapse" href="#word_list" aria-expanded="false" aria-controls="word_list" id='toggleList'>Ver palabras</button>
+						<button type="button" class="btn btn-info btn-xs " id='restart'>Empezar de nuevo</button>
 			    	</div>
 				 	<ul class="list-group collapse" id='word_list'>
 			    
 					</ul>
 				</div>
 			</div>
-			 <div class='footer text-center visible-md-block visible-lg-block'>
-				<b>Otros atajos del teclado:</b>  <kbd>d</kbd> Ver <strong>D</strong>ifinición de la ultima palabra, 
-				<kbd>t</kbd> Ver <strong>T</strong>raducción de la ultima palabra,
-				<kbd>l</kbd> Abrir/Cerrar <strong>L</strong>ista de palabras
-				<kbd>r</kbd> Volver a empeza<strong>R</strong>
+			 <div class='footer text-center visible-md-block visible-lg-block' id="keyboardHelp">
+				<b>Atajos:</b> <kbd>Enter</kbd> sí, <kbd>Retroceso</kbd> no, <kbd>l</kbd> lista, <kbd>r</kbd> reiniciar.
 			 </div>
 		 <div> 
 	                           

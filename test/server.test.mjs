@@ -19,7 +19,12 @@ test.after(() => server.close());
 test('serves the game page', async () => {
   const response = await fetch(`${baseUrl}/`);
   assert.equal(response.status, 200);
-  assert.match(await response.text(), /NaiveWord/);
+  const page = await response.text();
+  assert.match(page, /NaiveWord/);
+  assert.match(page, /id="languagePicker"/);
+  for (const language of ['es', 'en', 'it', 'de']) {
+    assert.match(page, new RegExp(`<option value="${language}">`));
+  }
 });
 
 test('returns words for each supported language', async () => {

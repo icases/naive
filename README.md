@@ -13,6 +13,8 @@ npm start
 
 Open `http://localhost:3000`. The server serves the static pages and provides
 `GET /api/word?lang=es`, with `es`, `en`, `de`, and `it` as supported languages.
+Use the compact selector in the top-right corner to switch the game interface
+and word model between Spanish, English, Italian, and German.
 
 ## Verify
 
