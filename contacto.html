@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NaiveWord · Más información</title>
   <link rel="stylesheet" href="css/site.css">
+  <script src="js/info-pages.js" defer></script>
 </head>
-<body>
+<body data-page="about">
   <div class="site-shell">
     <header class="site-header">
       <a class="brand" href="index.html">NaiveWord</a>
-      <nav aria-label="Navegación principal"><a href="how-to.html">Cómo funciona</a><a href="contacto.html">Más información</a></nav>
+      <nav aria-label="Navegación principal"><a id="howToLink" href="how-to.html">Cómo funciona</a><a id="infoLink" href="contacto.html">Más información</a></nav>
+      <label class="language-picker" for="languagePicker"><span class="sr-only" id="languagePickerLabel">Idioma</span><select id="languagePicker"><option value="es">Español</option><option value="en">English</option><option value="it">Italiano</option><option value="de">Deutsch</option></select></label>
     </header>
-    <main class="info-content">
+    <main class="info-content" id="pageContent">
       <h1>Sobre NaiveWord</h1>
       <p>Este proyecto es una forma de explorar modelos bayesianos y modelos de lenguaje sencillos.</p>
       <h2>El proyecto</h2>

@@ -30,6 +30,18 @@ test('does not load legacy UI libraries', async () => {
   }
 });
 
+test('ships translated information pages', async () => {
+  const script = await readFile(new URL('../js/info-pages.js', import.meta.url), 'utf8');
+  for (const language of ['es', 'en', 'it', 'de']) {
+    assert.match(script, new RegExp(`${language}: \\{ picker:`));
+  }
+  for (const page of ['how-to.html', 'contacto.html']) {
+    const source = await readFile(new URL(`../${page}`, import.meta.url), 'utf8');
+    assert.match(source, /js\/info-pages\.js/);
+    assert.match(source, /id="languagePicker"/);
+  }
+});
+
 test('reports its health', async () => {
   const response = await fetch(`${baseUrl}/health`);
   assert.equal(response.status, 200);
