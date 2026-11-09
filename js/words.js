@@ -78,15 +78,21 @@ function getUrlVar(key){
 
 function load_word () {
 	$('#word').html("Cargando <img src='img/spinner3-bluey.gif' alt='Spinner'>");
-	$.getJSON('cgi/gime.cgi',{ lang:lang}, function(data) {
-		current_word=data[0].word;
-		//alert(current_word);
-		current_real=data[0].real;
-	  $('#word').html(current_word); 
-	  $('#word').quickfit({max:80})
-      $('#buttons').show() 
-      
-	});
+	fetch('api/word?lang=' + encodeURIComponent(lang))
+		.then(function(response) {
+			if (!response.ok) throw new Error('No se pudo cargar la palabra');
+			return response.json();
+		})
+		.then(function(data) {
+			current_word=data.word;
+			current_real=data.real;
+			$('#word').text(current_word);
+			$('#word').quickfit({max:80})
+			$('#buttons').show()
+		})
+		.catch(function() {
+			$('#word').text('No se pudo cargar una palabra. Inténtalo de nuevo.');
+		});
 	
 };
 function add_to_list(res){       
