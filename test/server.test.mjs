@@ -23,6 +23,13 @@ test('uses HTTPS dictionary links', async () => {
   assert.match(client, /https:\/\/dle\.rae\.es/);
 });
 
+test('does not load legacy UI libraries', async () => {
+  for (const page of ['index.html', 'how-to.html', 'contacto.html']) {
+    const source = await readFile(new URL(`../${page}`, import.meta.url), 'utf8');
+    assert.doesNotMatch(source, /jquery|bootstrap/i);
+  }
+});
+
 test('reports its health', async () => {
   const response = await fetch(`${baseUrl}/health`);
   assert.equal(response.status, 200);

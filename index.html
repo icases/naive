@@ -1,89 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<title>NaiveWord</title>
-	  
-	<link rel="stylesheet" href="css/words.css" type="text/css" media="screen" title="no title" charset="utf-8">
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="js/jquery.quickfit.js" type="text/javascript" charset="utf-8"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
-	<script src="js/words.js" type="text/javascript" charset="utf-8"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NaiveWord</title>
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/words.css">
+  <script src="js/words.js" defer></script>
 </head>
-
-<body>     
-	<div class="container">  
-		<div class="language-picker">
-			<label class="sr-only" for="languagePicker" id="languagePickerLabel">Idioma</label>
-			<select id="languagePicker" class="form-control input-sm">
-				<option value="es">Español</option>
-				<option value="en">English</option>
-				<option value="it">Italiano</option>
-				<option value="de">Deutsch</option>
-			</select>
-		</div>
-		<nav class="navbar navbar-default">  
-			<div class="container-fluid">   
-				<div class="navbar-header">  
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-					</button>
-                    <a href='#' class="navbar-brand">NaiveWord</a>
-				</div> 
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav" id='nav'>
-                        <li><a id="howToLink" href='how-to.html'>Cómo funciona</a></li>
-						<li><a id="infoLink" href='contacto.html'>Más información</a></li>
-		  			</ul>
-				</div> 
-			</div>
-		</nav>
-		<div id="header" class="page-header text-center">
-			<h1 id="heading">¿Es esto español?</h1>
-			<p class='lead' id="intro">Hablas español, pero ¿cómo de bien lo conoces?</p>
-   		</div>
- 	
- 		<div class="container"> 
-		 	<div id="content" class=' text-center col-sm-6  '> 
-			<p class='small' id='warn'>Recuerda: no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong>.</p>
-				<div id='word' class='left'>Cargando <img src="img/spinner3-bluey.gif" width="36" height="36" alt="Spinner3 Bluey"></div> 
-				<div id='buttons' class='center-block text-center'>
-					<button type="button" class='btn btn-success' id='yes'><span id="yesLabel">Es una palabra real</span> <span class='visible-md-block visible-lg-block'>&#8617;</span> </button>
-					<button type="button" class='btn btn-danger' id='no'><span id="noLabel">Te lo has inventado</span> <span class='visible-md-block visible-lg-block'>&#9003;</span></button>
-				</div> 
-			
-	   	   		<div  id='result' class="well col-sm-8 col-sm-offset-2">
-						<h3 id="exclama">¡Bien!</h3> <p id='mensaje'>Tienes razón. Esta es una palabra real.</p>
-						<button type='button' class="btn btn-default" id='new'><span id="newLabel">Nueva palabra</span> <span class='visible-md-block visible-lg-block'>&#8617;</span></button>
-				</div>    
-			</div>    
-	   		<div class='col-sm-6'>
-    			<div id="lista" class="panel panel-info "  > 
-					<div class="panel-heading">
-					      <h4 id="scoreTitle">¿Cómo lo estás haciendo?</h4>
-			 		</div> 
-					<div class="panel-body text-center">
-						<h3><span id="correctLabel">bien</span> <span id='bien' class="badge">0 </span> <span id="incorrectLabel">mal</span> <span id='mal' class="badge">0 </span> <span id="streakLabel">racha</span> <span id='streak' class="badge">0</span></h3>
-						<button type="button" class="btn btn-info btn-xs" data-toggle="collapse" href="#word_list" aria-expanded="false" aria-controls="word_list" id='toggleList'>Ver palabras</button>
-						<button type="button" class="btn btn-info btn-xs " id='restart'>Empezar de nuevo</button>
-			    	</div>
-				 	<ul class="list-group collapse" id='word_list'>
-			    
-					</ul>
-				</div>
-			</div>
-			 <div class='footer text-center visible-md-block visible-lg-block' id="keyboardHelp">
-				<b>Atajos:</b> <kbd>Enter</kbd> sí, <kbd>Retroceso</kbd> no, <kbd>l</kbd> lista, <kbd>r</kbd> reiniciar.
-			 </div>
-		 <div> 
-	                           
-
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html">NaiveWord</a>
+      <nav aria-label="Navegación principal">
+        <a id="howToLink" href="how-to.html">Cómo funciona</a>
+        <a id="infoLink" href="contacto.html">Más información</a>
+      </nav>
+      <label class="language-picker" for="languagePicker">
+        <span class="sr-only" id="languagePickerLabel">Idioma</span>
+        <select id="languagePicker">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+          <option value="it">Italiano</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </label>
+    </header>
+    <main>
+      <section class="hero">
+        <h1 id="heading">¿Es esto español?</h1>
+        <p id="intro">Hablas español, pero ¿cómo de bien lo conoces?</p>
+      </section>
+      <div class="game-layout">
+        <section class="game-board" aria-live="polite">
+          <p class="hint" id="warn">Recuerda: no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong>.</p>
+          <div id="word">Cargando…</div>
+          <div class="actions" id="buttons">
+            <button class="button button-positive" id="yes" type="button"><span id="yesLabel">Es una palabra real</span></button>
+            <button class="button button-negative" id="no" type="button"><span id="noLabel">Te la has inventado</span></button>
+          </div>
+          <section class="result" id="result" hidden>
+            <h2 id="exclama">¡Bien!</h2>
+            <p id="mensaje">Tienes razón. Esta es una palabra real.</p>
+            <button class="button button-neutral" id="new" type="button"><span id="newLabel">Nueva palabra</span></button>
+          </section>
+        </section>
+        <aside class="score-panel">
+          <h2 id="scoreTitle">¿Cómo lo estás haciendo?</h2>
+          <dl class="score-list">
+            <div><dt id="correctLabel">bien</dt><dd id="bien">0</dd></div>
+            <div><dt id="incorrectLabel">mal</dt><dd id="mal">0</dd></div>
+            <div><dt id="streakLabel">racha</dt><dd id="streak">0</dd></div>
+          </dl>
+          <div class="panel-actions">
+            <button class="button button-small" id="toggleList" type="button" aria-controls="word_list" aria-expanded="false">Ver palabras</button>
+            <button class="button button-small" id="restart" type="button">Empezar de nuevo</button>
+          </div>
+          <ul class="word-list" id="word_list" hidden></ul>
+        </aside>
+      </div>
+    </main>
+    <footer id="keyboardHelp"><strong>Atajos:</strong> <kbd>Enter</kbd> sí, <kbd>Retroceso</kbd> no, <kbd>l</kbd> lista, <kbd>r</kbd> reiniciar.</footer>
+  </div>
 </body>
 </html>

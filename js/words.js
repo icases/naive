@@ -1,241 +1,173 @@
-var current_word;
-var current_real;
-var bien = 0;
-var mal = 0;
-var streak = 0;
-var lang = 'es';
-var translate = false;
-var wordListOpen = false;
+let currentWord = '';
+let currentReal = false;
+let correct = 0;
+let incorrect = 0;
+let streak = 0;
+let language = 'es';
+let listOpen = false;
 
-var dicts = {
-    es: 'https://dle.rae.es/',
-    en: 'https://en.wiktionary.org/wiki/',
-    de: 'https://de.wiktionary.org/wiki/',
-    it: 'https://it.wiktionary.org/wiki/'
+const dictionaries = {
+  es: 'https://dle.rae.es/',
+  en: 'https://en.wiktionary.org/wiki/',
+  de: 'https://de.wiktionary.org/wiki/',
+  it: 'https://it.wiktionary.org/wiki/'
 };
 
-var translations = {
-    es: {
-        languageName: 'español', picker: 'Idioma', howTo: 'Cómo funciona', info: 'Más información',
-        heading: '¿Es esto español?', intro: 'Hablas español, pero ¿cómo de bien lo conoces?',
-        warning: 'Recuerda: no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong>.',
-        yes: 'Es una palabra real', no: 'Te la has inventado', newWord: 'Nueva palabra',
-        score: '¿Cómo lo estás haciendo?', correct: 'bien', incorrect: 'mal', streak: 'racha', showList: 'Ver palabras', hideList: 'Ocultar palabras', restart: 'Empezar de nuevo',
-        loading: 'Cargando', loadError: 'No se pudo cargar una palabra. Inténtalo de nuevo.',
-        good: '¡Bien!', sorry: '¡Lo siento!', realRight: 'Tienes razón. <b>{word}</b> es una palabra real.', fakeRight: 'Me has pillado. <b>{word}</b> no es una palabra real.', realWrong: 'Aunque no lo parezca, <b>{word}</b> es una palabra real.', fakeWrong: 'Lo siento. <b>{word}</b> no es una palabra real.',
-        keyboard: '<b>Atajos:</b> <kbd>Enter</kbd> sí, <kbd>Retroceso</kbd> no, <kbd>l</kbd> lista, <kbd>r</kbd> reiniciar.'
-    },
-    en: {
-        languageName: 'English', picker: 'Language', howTo: 'How it works', info: 'More information',
-        heading: 'Is this English?', intro: 'You speak English, but how well do you know it?',
-        warning: 'Remember: <strong>verb forms</strong> and <strong>plurals</strong> do not count.',
-        yes: 'It is a real word', no: 'You made it up', newWord: 'New word',
-        score: 'How are you doing?', correct: 'right', incorrect: 'wrong', streak: 'streak', showList: 'Show words', hideList: 'Hide words', restart: 'Start over',
-        loading: 'Loading', loadError: 'A word could not be loaded. Please try again.',
-        good: 'Correct!', sorry: 'Sorry!', realRight: 'You are right. <b>{word}</b> is a real word.', fakeRight: 'You caught it. <b>{word}</b> is not a real word.', realWrong: 'Actually, <b>{word}</b> is a real word.', fakeWrong: 'Sorry. <b>{word}</b> is not a real word.',
-        keyboard: '<b>Shortcuts:</b> <kbd>Enter</kbd> yes, <kbd>Backspace</kbd> no, <kbd>l</kbd> list, <kbd>r</kbd> restart.'
-    },
-    it: {
-        languageName: 'italiano', picker: 'Lingua', howTo: 'Come funziona', info: 'Maggiori informazioni',
-        heading: 'È italiano?', intro: 'Parli italiano, ma quanto lo conosci?',
-        warning: 'Ricorda: le <strong>forme verbali</strong> e i <strong>plurali</strong> non valgono.',
-        yes: 'È una parola vera', no: 'Te la sei inventata', newWord: 'Nuova parola',
-        score: 'Come sta andando?', correct: 'giuste', incorrect: 'sbagliate', streak: 'serie', showList: 'Mostra parole', hideList: 'Nascondi parole', restart: 'Ricomincia',
-        loading: 'Caricamento', loadError: 'Non è stato possibile caricare una parola. Riprova.',
-        good: 'Bene!', sorry: 'Mi dispiace!', realRight: 'Hai ragione. <b>{word}</b> è una parola vera.', fakeRight: 'L’hai scoperta. <b>{word}</b> non è una parola vera.', realWrong: 'In realtà, <b>{word}</b> è una parola vera.', fakeWrong: 'Mi dispiace. <b>{word}</b> non è una parola vera.',
-        keyboard: '<b>Scorciatoie:</b> <kbd>Invio</kbd> sì, <kbd>Backspace</kbd> no, <kbd>l</kbd> elenco, <kbd>r</kbd> ricomincia.'
-    },
-    de: {
-        languageName: 'Deutsch', picker: 'Sprache', howTo: 'So funktioniert es', info: 'Mehr Informationen',
-        heading: 'Ist das Deutsch?', intro: 'Du sprichst Deutsch, aber wie gut kennst du es?',
-        warning: 'Denk daran: <strong>Verbformen</strong> und <strong>Pluralformen</strong> zählen nicht.',
-        yes: 'Das ist ein echtes Wort', no: 'Das hast du erfunden', newWord: 'Neues Wort',
-        score: 'Wie läuft es?', correct: 'richtig', incorrect: 'falsch', streak: 'Serie', showList: 'Wörter zeigen', hideList: 'Wörter ausblenden', restart: 'Neu starten',
-        loading: 'Wird geladen', loadError: 'Ein Wort konnte nicht geladen werden. Bitte versuche es erneut.',
-        good: 'Richtig!', sorry: 'Schade!', realRight: 'Du hast recht. <b>{word}</b> ist ein echtes Wort.', fakeRight: 'Gut erkannt. <b>{word}</b> ist kein echtes Wort.', realWrong: 'Tatsächlich ist <b>{word}</b> ein echtes Wort.', fakeWrong: 'Schade. <b>{word}</b> ist kein echtes Wort.',
-        keyboard: '<b>Tastenkürzel:</b> <kbd>Enter</kbd> ja, <kbd>Rücktaste</kbd> nein, <kbd>l</kbd> Liste, <kbd>r</kbd> neu starten.'
-    }
+const translations = {
+  es: { languageName: 'español', picker: 'Idioma', howTo: 'Cómo funciona', info: 'Más información', heading: '¿Es esto español?', intro: 'Hablas español, pero ¿cómo de bien lo conoces?', warning: 'Recuerda: no valen <strong>formas verbales</strong> ni <strong>plurales</strong>, y ojo con las <strong>tildes</strong>.', yes: 'Es una palabra real', no: 'Te la has inventado', newWord: 'Nueva palabra', score: '¿Cómo lo estás haciendo?', correct: 'bien', incorrect: 'mal', streak: 'racha', showList: 'Ver palabras', hideList: 'Ocultar palabras', restart: 'Empezar de nuevo', loading: 'Cargando…', loadError: 'No se pudo cargar una palabra. Inténtalo de nuevo.', good: '¡Bien!', sorry: '¡Lo siento!', realRight: 'Tienes razón. <b>{word}</b> es una palabra real.', fakeRight: 'Me has pillado. <b>{word}</b> no es una palabra real.', realWrong: 'Aunque no lo parezca, <b>{word}</b> es una palabra real.', fakeWrong: 'Lo siento. <b>{word}</b> no es una palabra real.', keyboard: '<strong>Atajos:</strong> <kbd>Enter</kbd> sí, <kbd>Retroceso</kbd> no, <kbd>l</kbd> lista, <kbd>r</kbd> reiniciar.' },
+  en: { languageName: 'English', picker: 'Language', howTo: 'How it works', info: 'More information', heading: 'Is this English?', intro: 'You speak English, but how well do you know it?', warning: 'Remember: <strong>verb forms</strong> and <strong>plurals</strong> do not count.', yes: 'It is a real word', no: 'You made it up', newWord: 'New word', score: 'How are you doing?', correct: 'right', incorrect: 'wrong', streak: 'streak', showList: 'Show words', hideList: 'Hide words', restart: 'Start over', loading: 'Loading…', loadError: 'A word could not be loaded. Please try again.', good: 'Correct!', sorry: 'Sorry!', realRight: 'You are right. <b>{word}</b> is a real word.', fakeRight: 'You caught it. <b>{word}</b> is not a real word.', realWrong: 'Actually, <b>{word}</b> is a real word.', fakeWrong: 'Sorry. <b>{word}</b> is not a real word.', keyboard: '<strong>Shortcuts:</strong> <kbd>Enter</kbd> yes, <kbd>Backspace</kbd> no, <kbd>l</kbd> list, <kbd>r</kbd> restart.' },
+  it: { languageName: 'italiano', picker: 'Lingua', howTo: 'Come funziona', info: 'Maggiori informazioni', heading: 'È italiano?', intro: 'Parli italiano, ma quanto lo conosci?', warning: 'Ricorda: le <strong>forme verbali</strong> e i <strong>plurali</strong> non valgono.', yes: 'È una parola vera', no: 'Te la sei inventata', newWord: 'Nuova parola', score: 'Come sta andando?', correct: 'giuste', incorrect: 'sbagliate', streak: 'serie', showList: 'Mostra parole', hideList: 'Nascondi parole', restart: 'Ricomincia', loading: 'Caricamento…', loadError: 'Non è stato possibile caricare una parola. Riprova.', good: 'Bene!', sorry: 'Mi dispiace!', realRight: 'Hai ragione. <b>{word}</b> è una parola vera.', fakeRight: 'L’hai scoperta. <b>{word}</b> non è una parola vera.', realWrong: 'In realtà, <b>{word}</b> è una parola vera.', fakeWrong: 'Mi dispiace. <b>{word}</b> non è una parola vera.', keyboard: '<strong>Scorciatoie:</strong> <kbd>Invio</kbd> sì, <kbd>Backspace</kbd> no, <kbd>l</kbd> elenco, <kbd>r</kbd> ricomincia.' },
+  de: { languageName: 'Deutsch', picker: 'Sprache', howTo: 'So funktioniert es', info: 'Mehr Informationen', heading: 'Ist das Deutsch?', intro: 'Du sprichst Deutsch, aber wie gut kennst du es?', warning: 'Denk daran: <strong>Verbformen</strong> und <strong>Pluralformen</strong> zählen nicht.', yes: 'Das ist ein echtes Wort', no: 'Das hast du erfunden', newWord: 'Neues Wort', score: 'Wie läuft es?', correct: 'richtig', incorrect: 'falsch', streak: 'Serie', showList: 'Wörter zeigen', hideList: 'Wörter ausblenden', restart: 'Neu starten', loading: 'Wird geladen…', loadError: 'Ein Wort konnte nicht geladen werden. Bitte versuche es erneut.', good: 'Richtig!', sorry: 'Schade!', realRight: 'Du hast recht. <b>{word}</b> ist ein echtes Wort.', fakeRight: 'Gut erkannt. <b>{word}</b> ist kein echtes Wort.', realWrong: 'Tatsächlich ist <b>{word}</b> ein echtes Wort.', fakeWrong: 'Schade. <b>{word}</b> ist kein echtes Wort.', keyboard: '<strong>Tastenkürzel:</strong> <kbd>Enter</kbd> ja, <kbd>Rücktaste</kbd> nein, <kbd>l</kbd> Liste, <kbd>r</kbd> neu starten.' }
 };
 
-$(function() {
-    getLang();
-    restoreScore();
-    applyTranslations();
-    load_word();
+const byId = (id) => document.getElementById(id);
+const copy = () => translations[language];
 
-    $('#result').hide();
-    updateScore();
+document.addEventListener('DOMContentLoaded', () => {
+  const requested = new URLSearchParams(window.location.search).get('lang');
+  language = translations[requested] ? requested : 'es';
+  restoreScore();
+  translatePage();
+  updateScore();
+  loadWord();
 
-    $('#yes').click(function() { check_reply(true); });
-    $('#no').click(function() { check_reply(false); });
-    $('#new').click(function() { new_word(); });
-    $('#toggleList').click(function() {
-        wordListOpen = !wordListOpen;
-        updateWordListButton();
-    });
-    $('#restart').click(restart);
-    $('#languagePicker').change(function() { switchLanguage($(this).val()); });
-
-    $(document).keyup(function(event) {
-        if (event.which === 13) $('#new').is(':visible') ? new_word() : check_reply(true);
-        if (event.which === 8 && $('#no').is(':visible')) check_reply(false);
-        if (event.which === 68) $('a.last_def').click();
-        if (event.which === 84) $('a.last_trans').click();
-        if (event.which === 76) $('#toggleList').click();
-        if (event.which === 82) restart();
-    });
+  byId('yes').addEventListener('click', () => checkAnswer(true));
+  byId('no').addEventListener('click', () => checkAnswer(false));
+  byId('new').addEventListener('click', loadWord);
+  byId('restart').addEventListener('click', restart);
+  byId('toggleList').addEventListener('click', toggleList);
+  byId('languagePicker').addEventListener('change', (event) => switchLanguage(event.target.value));
+  document.addEventListener('keyup', onKeyUp);
 });
 
-function getLang() {
-    var requested = new URLSearchParams(window.location.search).get('lang');
-    lang = translations[requested] ? requested : 'es';
-    translate = lang !== 'es';
+function translatePage() {
+  const text = copy();
+  document.documentElement.lang = language;
+  document.title = `NaiveWord · ${text.languageName}`;
+  byId('languagePickerLabel').textContent = text.picker;
+  byId('languagePicker').value = language;
+  byId('howToLink').textContent = text.howTo;
+  byId('infoLink').textContent = text.info;
+  byId('heading').textContent = text.heading;
+  byId('intro').textContent = text.intro;
+  byId('warn').innerHTML = text.warning;
+  byId('yesLabel').textContent = text.yes;
+  byId('noLabel').textContent = text.no;
+  byId('newLabel').textContent = text.newWord;
+  byId('scoreTitle').textContent = text.score;
+  byId('correctLabel').textContent = text.correct;
+  byId('incorrectLabel').textContent = text.incorrect;
+  byId('streakLabel').textContent = text.streak;
+  byId('restart').textContent = text.restart;
+  byId('keyboardHelp').innerHTML = text.keyboard;
+  byId('toggleList').textContent = listOpen ? text.hideList : text.showList;
 }
 
-function applyTranslations() {
-    var copy = translations[lang];
-    document.documentElement.lang = lang;
-    document.title = 'NaiveWord · ' + copy.languageName;
-    $('#languagePickerLabel').text(copy.picker);
-    $('#languagePicker').val(lang);
-    $('#howToLink').text(copy.howTo);
-    $('#infoLink').text(copy.info);
-    $('#heading').text(copy.heading);
-    $('#intro').text(copy.intro);
-    $('#warn').html(copy.warning);
-    $('#yesLabel').text(copy.yes);
-    $('#noLabel').text(copy.no);
-    $('#newLabel').text(copy.newWord);
-    $('#scoreTitle').text(copy.score);
-    $('#correctLabel').text(copy.correct);
-    $('#incorrectLabel').text(copy.incorrect);
-    $('#streakLabel').text(copy.streak);
-    $('#restart').text(copy.restart);
-    $('#keyboardHelp').html(copy.keyboard);
-    updateWordListButton();
+function switchLanguage(nextLanguage) {
+  const url = new URL(window.location.href);
+  url.searchParams.set('lang', nextLanguage);
+  window.location.assign(`${url.pathname}${url.search}`);
 }
 
-function updateWordListButton() {
-    var copy = translations[lang];
-    $('#toggleList').text(wordListOpen ? copy.hideList : copy.showList);
-}
-
-function switchLanguage(language) {
-    var url = new URL(window.location.href);
-    url.searchParams.set('lang', language);
-    window.location.assign(url.pathname + url.search);
-}
-
-function restart() {
-    $('#word_list').collapse('hide');
-    wordListOpen = false;
-    bien = 0;
-    mal = 0;
-    streak = 0;
-    saveScore();
-    updateScore();
-    updateWordListButton();
-    new_word();
-}
-
-function scoreKey() {
-    return 'naiveword:score:' + lang;
-}
+function scoreKey() { return `naiveword:score:${language}`; }
 
 function restoreScore() {
-    try {
-        var saved = JSON.parse(window.localStorage.getItem(scoreKey()));
-        if (!saved) return;
-        bien = Number.isSafeInteger(saved.correct) && saved.correct >= 0 ? saved.correct : 0;
-        mal = Number.isSafeInteger(saved.incorrect) && saved.incorrect >= 0 ? saved.incorrect : 0;
-        streak = Number.isSafeInteger(saved.streak) && saved.streak >= 0 ? saved.streak : 0;
-    } catch (_) {
-        bien = 0;
-        mal = 0;
-        streak = 0;
-    }
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(scoreKey()));
+    if (!saved) return;
+    correct = Number.isSafeInteger(saved.correct) && saved.correct >= 0 ? saved.correct : 0;
+    incorrect = Number.isSafeInteger(saved.incorrect) && saved.incorrect >= 0 ? saved.incorrect : 0;
+    streak = Number.isSafeInteger(saved.streak) && saved.streak >= 0 ? saved.streak : 0;
+  } catch (_) { correct = 0; incorrect = 0; streak = 0; }
 }
 
 function saveScore() {
-    try {
-        window.localStorage.setItem(scoreKey(), JSON.stringify({ correct: bien, incorrect: mal, streak: streak }));
-    } catch (_) {
-        // The game remains usable when browser storage is unavailable.
-    }
+  try { window.localStorage.setItem(scoreKey(), JSON.stringify({ correct, incorrect, streak })); } catch (_) { /* Storage is optional. */ }
 }
 
 function updateScore() {
-    $('#bien').text(bien);
-    $('#mal').text(mal);
-    $('#streak').text(streak);
+  byId('bien').textContent = correct;
+  byId('mal').textContent = incorrect;
+  byId('streak').textContent = streak;
 }
 
-function load_word() {
-    var copy = translations[lang];
-    $('#word').html(copy.loading + " <img src='img/spinner3-bluey.gif' alt='Spinner'>");
-    fetch('api/word?lang=' + encodeURIComponent(lang))
-        .then(function(response) {
-            if (!response.ok) throw new Error(copy.loadError);
-            return response.json();
-        })
-        .then(function(data) {
-            current_word = data.word;
-            current_real = data.real;
-            $('#word').text(current_word);
-            $('#word').quickfit({max: 80});
-            $('#buttons').show();
-        })
-        .catch(function() {
-            $('#word').text(copy.loadError);
-        });
+async function loadWord() {
+  const text = copy();
+  byId('word').textContent = text.loading;
+  byId('buttons').hidden = true;
+  byId('result').hidden = true;
+  try {
+    const response = await fetch(`api/word?lang=${encodeURIComponent(language)}`);
+    if (!response.ok) throw new Error(text.loadError);
+    const data = await response.json();
+    currentWord = data.word;
+    currentReal = data.real;
+    byId('word').textContent = currentWord;
+    byId('buttons').hidden = false;
+  } catch (_) { byId('word').textContent = text.loadError; }
 }
 
-function add_to_list(result) {
-    var string = '<li class="list-group-item"><span>';
-    if (current_real) {
-        $('ul#word_list li a').removeClass('last_def last_trans');
-        string += "<a class='last_def' href='" + encodeURI(dicts[lang] + current_word) + "' target='_blank'>";
-    } else {
-        string += '<s>';
-    }
-    string += current_word;
-    string += current_real ? '</a>' : '</s>';
-    string += '</span>';
-    if (result === 'correct') string += '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>';
-    if (result === 'incorrect') string += '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-    if (translate && current_real) {
-        string += "<a class='pull-right last_trans' target='_blank' href='https://translate.google.com/?sl=" + lang + '&tl=es&text=' + encodeURIComponent(current_word) + "'><img src=" + '"img/es.png" alt="Español"></a>';
-    }
-    string += '</li>';
-    $(string).prependTo('#word_list');
+function checkAnswer(answer) {
+  if (byId('buttons').hidden) return;
+  const text = copy();
+  const right = answer === currentReal;
+  byId('buttons').hidden = true;
+  byId('exclama').textContent = right ? text.good : text.sorry;
+  byId('mensaje').innerHTML = (right ? (currentReal ? text.realRight : text.fakeRight) : (currentReal ? text.realWrong : text.fakeWrong)).replace('{word}', currentWord);
+  if (right) { correct += 1; streak += 1; } else { incorrect += 1; streak = 0; }
+  appendWord(right);
+  saveScore();
+  updateScore();
+  byId('result').hidden = false;
 }
 
-function message(template) {
-    return template.replace('{word}', current_word);
+function appendWord(right) {
+  const item = document.createElement('li');
+  const word = currentReal ? document.createElement('a') : document.createElement('s');
+  word.textContent = currentWord;
+  if (currentReal) {
+    word.href = `${dictionaries[language]}${encodeURIComponent(currentWord)}`;
+    word.target = '_blank';
+    word.rel = 'noopener';
+  }
+  item.append(word);
+  const outcome = document.createElement('span');
+  outcome.textContent = right ? '✓' : '✕';
+  outcome.setAttribute('aria-label', right ? copy().correct : copy().incorrect);
+  item.append(outcome);
+  if (language !== 'es' && currentReal) {
+    const translation = document.createElement('a');
+    translation.href = `https://translate.google.com/?sl=${language}&tl=es&text=${encodeURIComponent(currentWord)}`;
+    translation.target = '_blank';
+    translation.rel = 'noopener';
+    translation.textContent = 'ES';
+    item.append(translation);
+  }
+  byId('word_list').prepend(item);
 }
 
-function check_reply(answer) {
-    var copy = translations[lang];
-    $('#buttons').hide();
-    if (answer === current_real) {
-        $('#exclama').text(copy.good);
-        $('#mensaje').html(message(current_real ? copy.realRight : copy.fakeRight));
-        bien++;
-        streak++;
-        add_to_list('correct');
-    } else {
-        $('#exclama').text(copy.sorry);
-        $('#mensaje').html(message(current_real ? copy.realWrong : copy.fakeWrong));
-        mal++;
-        streak = 0;
-        add_to_list('incorrect');
-    }
-    saveScore();
-    updateScore();
-    $('#result').show();
+function toggleList() {
+  listOpen = !listOpen;
+  byId('word_list').hidden = !listOpen;
+  byId('toggleList').setAttribute('aria-expanded', String(listOpen));
+  byId('toggleList').textContent = listOpen ? copy().hideList : copy().showList;
 }
 
-function new_word() {
-    $('#result').hide();
-    load_word();
+function restart() {
+  correct = 0;
+  incorrect = 0;
+  streak = 0;
+  byId('word_list').replaceChildren();
+  if (listOpen) toggleList();
+  saveScore();
+  updateScore();
+  loadWord();
+}
+
+function onKeyUp(event) {
+  if (event.target.matches('select, input, textarea')) return;
+  if (event.key === 'Enter') checkAnswer(true);
+  if (event.key === 'Backspace') checkAnswer(false);
+  if (event.key.toLowerCase() === 'l') toggleList();
+  if (event.key.toLowerCase() === 'r') restart();
 }

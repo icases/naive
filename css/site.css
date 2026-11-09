@@ -1,0 +1,27 @@
+:root { background: #f6f8fb; color: #1f2937; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #155eab; }
+.site-shell { margin: 0 auto; max-width: 960px; padding: 0 24px; }
+.site-header { align-items: center; border-bottom: 1px solid #d7deea; display: flex; gap: 24px; justify-content: space-between; min-height: 72px; }
+.brand { color: #172554; font-size: 1.25rem; font-weight: 750; text-decoration: none; }
+.site-header nav { display: flex; gap: 18px; margin-right: auto; }
+.site-header nav a { text-decoration: none; }
+.language-picker select { background: white; border: 1px solid #b8c4d6; border-radius: 6px; font: inherit; padding: 6px 9px; }
+.sr-only { clip: rect(0, 0, 0, 0); height: 1px; margin: -1px; overflow: hidden; position: absolute; width: 1px; }
+.hero { padding: 38px 0 24px; text-align: center; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3.25rem); margin: 0; }
+.hero p { color: #526176; font-size: 1.15rem; margin: 12px 0 0; }
+.button { border: 0; border-radius: 8px; color: white; cursor: pointer; font: inherit; font-weight: 650; padding: 11px 16px; }
+.button:hover { filter: brightness(.95); }
+.button:focus-visible, a:focus-visible, select:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+.button-positive { background: #16803c; }
+.button-negative { background: #ba2838; }
+.button-neutral, .button-small { background: #315b94; }
+.button-small { font-size: .875rem; padding: 7px 10px; }
+footer { border-top: 1px solid #d7deea; color: #526176; font-size: .9rem; margin-top: 32px; padding: 18px 0 30px; text-align: center; }
+kbd { background: #e5eaf2; border: 1px solid #c3cedd; border-radius: 4px; color: #26354a; padding: 1px 5px; }
+.info-content { line-height: 1.65; max-width: 760px; padding: 20px 0 48px; }
+.info-content h2 { color: #172554; margin-top: 32px; }
+.info-content img { border-radius: 8px; display: block; height: auto; margin: 24px auto; max-width: 100%; }
+@media (max-width: 640px) { .site-shell { padding: 0 16px; } .site-header { flex-wrap: wrap; gap: 12px; padding: 14px 0; } .site-header nav { order: 3; width: 100%; } }
