@@ -26,6 +26,13 @@ npm test
 The tests start the server, load the game page, request words for every
 language, and confirm that invalid languages are rejected.
 
+To run the optional browser test, install Playwright locally or point to an
+existing installation and Chromium executable:
+
+```sh
+PLAYWRIGHT_MODULE_PATH=/path/to/playwright CHROMIUM_PATH=/path/to/chromium npm run test:browser
+```
+
 ## Deploy on Render
 
 `render.yaml` defines a free Node web service. Create a Render account, connect
